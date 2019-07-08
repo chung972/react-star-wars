@@ -1,8 +1,20 @@
 import React from "react";
+import { Link } from 'react-router-dom';
 
-const Starship = (props) => (
+const Starship = ({starship}) => (
     <div>
-        {props.ship.name}
+        <div>Name: {starship.name}</div>
+        <div>Model: {starship.model}</div>
+        <Link to='/'>Return to Starship List</Link>
+        {starship.pilots ?
+            starship.pilots.map(pilot=>
+            <div>
+                {pilot.name}
+            </div>
+            )
+            :
+            <div>No Pilots</div>
+        }
     </div>
 )
 
