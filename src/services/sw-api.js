@@ -18,6 +18,10 @@ export function allShipsPageFour(){
     return fetch(endpoint, {mode: "cors"}).then(res => res.json());
 }
 
+export function getPilot(url){
+    const endpoint = url;
+    return fetch(endpoint, {mode:"cors"}).then(res=>res.json());
+}
 
 
 // const URL_BASE  = `https://swapi.co/api/starships/?page=$`
