@@ -1,26 +1,44 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {Component} from 'react';
 import './App.css';
+import { allShipsPageOne, allShipsPageTwo, allShipsPageThree, allShipsPageFour } from "./services/sw-api";
+import Starships from "./components/Starships/Starships";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+class App extends Component {
+
+  state = {
+    starshipList: null
+  }
+
+  async componentDidMount() {
+    const pageOne = await allShipsPageOne();
+    const pageTwo = await allShipsPageTwo();
+    const pageThree = await allShipsPageThree();
+    const pageFour = await allShipsPageFour();
+    
+    const shipList = [...pageOne.results, ...pageTwo.results, ...pageThree.results, ...pageFour.results]
+    this.setState({
+      starshipList: shipList
+    });
+  }
+
+  
+  render() {
+    console.log("in render")
+    console.log(this.state.starshipList);
+    return (
+      <div className="App">
+        <header className="App-header">
+          Star Wars API
+        </header>
+        <Starships 
+          starshipList={this.state.starshipList} 
+        />
+      
+      </div>
+    );
+  }
+  
 }
 
 export default App;
